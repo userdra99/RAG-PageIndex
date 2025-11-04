@@ -1,0 +1,73 @@
+{
+  "passed": 11,
+  "failed": 0,
+  "total": 11,
+  "results": [
+    {
+      "test": "TC-GPU-001: nvidia-smi availability",
+      "status": "PASS",
+      "message": "NVIDIA SMI detected: :",
+      "risk_level": "CRITICAL"
+    },
+    {
+      "test": "TC-GPU-002: CUDA version check",
+      "status": "PASS",
+      "message": "CUDA 13.0 \u2713 Compatible",
+      "risk_level": "CRITICAL"
+    },
+    {
+      "test": "TC-GPU-003: GPU count",
+      "status": "PASS",
+      "message": "Detected 2 GPU(s)",
+      "risk_level": "HIGH"
+    },
+    {
+      "test": "TC-GPU-004.0: GPU 0 memory",
+      "status": "PASS",
+      "message": "Total: 32607MB, Free: 30649MB \u2713 Sufficient for Qwen3-7B",
+      "risk_level": "HIGH"
+    },
+    {
+      "test": "TC-GPU-004.1: GPU 1 memory",
+      "status": "PASS",
+      "message": "Total: 32607MB, Free: 32092MB \u2713 Sufficient for Qwen3-7B",
+      "risk_level": "HIGH"
+    },
+    {
+      "test": "TC-DOCKER-001: Docker availability",
+      "status": "PASS",
+      "message": "Docker 28.4.0 detected",
+      "risk_level": "CRITICAL"
+    },
+    {
+      "test": "TC-DOCKER-002: GPU runtime",
+      "status": "PASS",
+      "message": "NVIDIA runtime configured",
+      "risk_level": "CRITICAL"
+    },
+    {
+      "test": "TC-DOCKER-003: GPU access from container",
+      "status": "PASS",
+      "message": "Container can access GPU",
+      "risk_level": "CRITICAL"
+    },
+    {
+      "test": "TC-ENV-001: Python version",
+      "status": "PASS",
+      "message": "Python 3.12.3 \u2713 Compatible",
+      "risk_level": "HIGH"
+    },
+    {
+      "test": "TC-ENV-002: Disk space",
+      "status": "PASS",
+      "message": "Available: 183G",
+      "risk_level": "MEDIUM"
+    },
+    {
+      "test": "TC-ENV-003: HuggingFace connectivity",
+      "status": "PASS",
+      "message": "Can reach HuggingFace",
+      "risk_level": "MEDIUM"
+    }
+  ]
+}

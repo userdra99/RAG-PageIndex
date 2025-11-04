@@ -1,17 +1,9 @@
-# Python virtual environment
-.venv/
-venv/
-ENV/
-env/
-
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-
-# Distribution / packaging
 build/
 develop-eggs/
 dist/
@@ -28,47 +20,52 @@ wheels/
 .installed.cfg
 *.egg
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-*.log
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
 
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Model files and large datasets
-models/
-*.bin
-*.safetensors
-*.gguf
-*.h5
-*.pth
 
 # Docker
-docker-compose.override.yml
+.dockerignore
 
 # Environment variables
-.env
 .env.local
+.env.*.local
 
-# Test outputs
-tests/gpu_test_results.json
+# Logs
+*.log
+logs/
 
-# Claude Flow artifacts
-.claude-flow/
-.hive-mind/
-.swarm/
-.claude/
+# Data directories
+data/uploads/*
+!data/uploads/.gitkeep
+data/results/*
+!data/results/.gitkeep
+data/chat_history.json
 
-# Environment files
-.env1
-.env2
+# Model cache
+.cache/
+huggingface/
+models/
+
+# Temporary files
+*.tmp
+tmp/
+temp/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Project specific
+sample_output.json
+test_doc.md
