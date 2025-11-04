@@ -1,0 +1,107 @@
+
+
+services:
+  # vLLM Service - Qwen3-32B Model Server with Dual GPU
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: pageindex-vllm
+    restart: unless-stopped
+
+    command:
+      - --model
+      - ${VLLM_MODEL:-Qwen/Qwen3-32B-AWQ}
+      - --tensor-parallel-size
+      - ${VLLM_TENSOR_PARALLEL_SIZE:-2}
+      - --gpu-memory-utilization
+      - ${VLLM_GPU_MEMORY_UTILIZATION:-0.80}
+      - --max-model-len
+      - ${VLLM_MAX_MODEL_LEN:-32768}
+      - --dtype
+      - ${VLLM_DTYPE:-auto}
+      - --quantization
+      - ${VLLM_QUANTIZATION:-awq}
+      - --max-num-seqs
+      - ${VLLM_MAX_NUM_SEQS:-256}
+      - --trust-remote-code
+
+    environment:
+      # NCCL Configuration (CRITICAL for RTX 5090 Dual GPU)
+      NCCL_VERSION: ${NCCL_VERSION:-2.27.7-1+cuda12.9}
+      NCCL_IB_DISABLE: ${NCCL_IB_DISABLE:-1}
+      NCCL_P2P_DISABLE: ${NCCL_P2P_DISABLE:-0}
+      NCCL_DEBUG: ${NCCL_DEBUG:-WARN}
+
+      # API Configuration
+      HOST: 0.0.0.0
+      PORT: 8000
+
+      # HuggingFace (if needed for private models)
+      # HF_TOKEN: ${HF_TOKEN}
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      # Model cache to avoid re-downloading (~17GB for Qwen3-32B-AWQ)
+      - vllm-models:/root/.cache/huggingface
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2  # Both RTX 5090 GPUs
+              capabilities: [gpu]
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s  # Longer startup for model loading
+
+    networks:
+      - pageindex-net
+
+  # PageIndex Application Service
+  pageindex:
+    image: pageindex:latest
+    container_name: pageindex-app
+    restart: unless-stopped
+
+    environment:
+      # vLLM API Configuration
+      VLLM_BASE_URL: ${VLLM_BASE_URL:-http://vllm:8000/v1}
+      CHATGPT_API_KEY: ${CHATGPT_API_KEY:-not-needed}
+      DEFAULT_MODEL: ${DEFAULT_MODEL:-Qwen/Qwen3-32B-AWQ}
+
+    ports:
+      - "8090:8080"
+
+    volumes:
+      # PageIndex data persistence
+      - pageindex-data:/app/data
+
+    depends_on:
+      vllm:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import pageindex; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    networks:
+      - pageindex-net
+
+volumes:
+  vllm-models:
+    driver: local
+  pageindex-data:
+    driver: local
+
+networks:
+  pageindex-net:
+    driver: bridge

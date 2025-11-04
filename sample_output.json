@@ -1,0 +1,67 @@
+{
+  "doc_name": "sample_document",
+  "structure": [
+    {
+      "title": "Introduction to Quantum Computing",
+      "node_id": "0000",
+      "prefix_summary": "# Introduction to Quantum Computing",
+      "line_num": 1,
+      "nodes": [
+        {
+          "title": "What is Quantum Computing?",
+          "node_id": "0001",
+          "prefix_summary": "## What is Quantum Computing?\n\nQuantum computing is a revolutionary approach to computation that leverages quantum mechanical phenomena.",
+          "line_num": 3,
+          "nodes": [
+            {
+              "title": "Key Concepts",
+              "node_id": "0002",
+              "prefix_summary": "### Key Concepts",
+              "line_num": 7,
+              "nodes": [
+                {
+                  "title": "Qubits",
+                  "node_id": "0003",
+                  "summary": "#### Qubits\nUnlike classical bits, qubits can exist in superposition states.",
+                  "line_num": 9
+                },
+                {
+                  "title": "Entanglement",
+                  "node_id": "0004",
+                  "summary": "#### Entanglement\nQuantum particles can be correlated in ways that classical systems cannot replicate.",
+                  "line_num": 12
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Applications",
+          "node_id": "0005",
+          "prefix_summary": "## Applications",
+          "line_num": 15,
+          "nodes": [
+            {
+              "title": "Cryptography",
+              "node_id": "0006",
+              "summary": "### Cryptography\nQuantum computers could break current encryption methods but also enable quantum-safe cryptography.",
+              "line_num": 17
+            },
+            {
+              "title": "Drug Discovery",
+              "node_id": "0007",
+              "summary": "### Drug Discovery\nSimulating molecular interactions at quantum level for pharmaceutical research.",
+              "line_num": 20
+            },
+            {
+              "title": "Optimization Problems",
+              "node_id": "0008",
+              "summary": "### Optimization Problems\nSolving complex optimization challenges in logistics and finance.",
+              "line_num": 23
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
